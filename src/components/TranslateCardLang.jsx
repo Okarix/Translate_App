@@ -10,18 +10,30 @@ const Ul = styled.ul`
 `;
 
 const Li = styled.li`
-	color: {props => (props.isActive ? '#f9fafb' : '#5a5a5a')};
+	color: ${props => (props.$isActive ? '#f9fafb' : '#4D5562')};
 	border-radius: 15px;
 	font-weight: 500;
 	font-size: 15px;
 	cursor: pointer;
 	padding: 8px;
 	transition: background-color 0.3s ease;
-	background-color: {props => (props.isactive ? '#8e9098' : 'transparent')};
+	background-color: ${props => (props.$isActive ? '#8e9098' : 'transparent')};
 	&:hover {
 		background-color: #8e9098;
 		border-radius: 15px;
 		color: #f9fafb;
+	}
+`;
+
+const Img = styled.img`
+	border-radius: 15px;
+	cursor: pointer;
+	transition: border 0.3s ease;
+	padding: 5px;
+	border: 2px transparent solid;
+	&:hover {
+		border: 2px #8e9098 solid;
+		border-radius: 15px;
 	}
 `;
 
@@ -35,23 +47,23 @@ function TranslateCardLang({ detectState }) {
 
 	return (
 		<div style={{ display: 'flex', justifyContent: 'space-between' }}>
-			<Ul detectState={detectState}>
+			<Ul $detectState={detectState}>
 				{detectState ? (
 					<Li
-						isactive={activeBtn === 'Detect'}
+						$isActive={activeBtn === 'Detect'}
 						onClick={() => handleClick('Detect')}
 					>
 						Detect language
 					</Li>
 				) : null}
 				<Li
-					isactive={activeBtn === 'English'}
+					$isActive={activeBtn === 'English'}
 					onClick={() => handleClick('English')}
 				>
 					English
 				</Li>
 				<Li
-					isactive={activeBtn === 'Russian'}
+					$isActive={activeBtn === 'Russian'}
 					onClick={() => handleClick('Russian')}
 				>
 					Russian
@@ -59,13 +71,10 @@ function TranslateCardLang({ detectState }) {
 			</Ul>
 
 			{detect ? null : (
-				<Li>
-					<img
-						style={{ cursor: 'pointer' }}
-						src={change}
-						alt='change'
-					/>
-				</Li>
+				<Img
+					src={change}
+					alt='change'
+				/>
 			)}
 		</div>
 	);

@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import TranslateCardLang from './TranslateCardLang';
 import TranslateCardDivider from './TranslateCardDivider';
+import TranslateCardInput from './TranslateCardInput';
+import TranslateCardLower from './TranslateCardLower';
 
 const Div = styled.div`
 	height: 300px;
@@ -15,6 +17,8 @@ function TranslateCard({ detectState }) {
 		<Div>
 			<TranslateCardLang detectState={detectState} />
 			<TranslateCardDivider />
+			<TranslateCardInput inputState={detectState} />
+			<TranslateCardLower buttonState={detectState} />
 		</Div>
 	);
 }

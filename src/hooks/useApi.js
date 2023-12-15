@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const useApi = (url, method, data = null) => {
+const useApi = (url, method = 'GET', data = null) => {
 	const [response, setResponse] = useState(null);
 	const [error, setError] = useState('');
 	const [loading, setLoading] = useState(true);

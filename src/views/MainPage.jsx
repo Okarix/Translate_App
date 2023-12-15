@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import bg from '../assets/img/bg/hero_img.jpg';
 import TranslateCard from '../components/TranslateCard';
@@ -14,12 +15,28 @@ const Container = styled.div`
 `;
 
 function MainPage() {
+	const [srcActiveLang, setSrcActiveLang] = useState('');
+	const [finActiveLang, setFinActiveLang] = useState('');
+	const [srcText, setSrcText] = useState('');
+	const [finText, setFinText] = useState('');
+
 	return (
 		<Bg>
 			<Container>
 				<div style={{ display: 'flex', justifyContent: 'space-around' }}>
-					<TranslateCard detectState={true} />
-					<TranslateCard detectState={false} />
+					<TranslateCard
+						detectState={true}
+						srcActiveLang={srcActiveLang}
+						setSrcActiveLang={setSrcActiveLang}
+						srcText={srcText}
+						setSrcText={setSrcText}
+					/>
+					<TranslateCard
+						detectState={false}
+						finActiveLang={finActiveLang}
+						setFinActiveLang={setFinActiveLang}
+						finText={finText}
+					/>
 				</div>
 			</Container>
 		</Bg>

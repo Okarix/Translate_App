@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { useState } from 'react';
 
 const Input = styled.textarea`
 	resize: none;
@@ -18,20 +17,32 @@ const Span = styled.span`
 	font-size: 14px;
 `;
 
-function TranslateCardInput({ inputState }) {
-	const [text, setText] = useState('');
-	const [span, setSpan] = useState(inputState);
-
+function TranslateCardInput({ inputState, srcText, setSrcText, finText }) {
 	return (
 		<>
-			<Input
-				$span={span}
-				type='text'
-				value={text}
-				onChange={e => setText(e.target.value)}
-				maxLength={500}
-			/>
-			<div style={{ display: 'flex', justifyContent: 'flex-end' }}>{span ? <Span>{text.length}/500</Span> : null}</div>
+			{inputState ? (
+				<>
+					<Input
+						$span={inputState}
+						type='text'
+						value={srcText}
+						onChange={e => setSrcText(e.target.value)}
+						maxLength={500}
+					/>
+					<div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+						<Span>{srcText.length}/500</Span>
+					</div>
+				</>
+			) : (
+				<>
+					<Input
+						$span={inputState}
+						type='text'
+						value={finText}
+						readOnly
+					/>
+				</>
+			)}
 		</>
 	);
 }

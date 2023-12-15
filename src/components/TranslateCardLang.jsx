@@ -37,40 +37,50 @@ const Img = styled.img`
 	}
 `;
 
-function TranslateCardLang({ detectState }) {
-	const [detect, setDetected] = useState(detectState);
-	const [activeBtn, setActiveBtn] = useState(null);
-
-	const handleClick = lang => {
-		setActiveBtn(lang);
-	};
-
+function TranslateCardLang({ detectState, srcActiveLang, setSrcActiveLang, finActiveLang, setFinActiveLang }) {
 	return (
 		<div style={{ display: 'flex', justifyContent: 'space-between' }}>
 			<Ul $detectState={detectState}>
 				{detectState ? (
-					<Li
-						$isActive={activeBtn === 'Detect'}
-						onClick={() => handleClick('Detect')}
-					>
-						Detect language
-					</Li>
-				) : null}
-				<Li
-					$isActive={activeBtn === 'English'}
-					onClick={() => handleClick('English')}
-				>
-					English
-				</Li>
-				<Li
-					$isActive={activeBtn === 'Russian'}
-					onClick={() => handleClick('Russian')}
-				>
-					Russian
-				</Li>
+					<>
+						<Li
+							$isActive={srcActiveLang === 'Detect'}
+							onClick={() => setSrcActiveLang('Detect')}
+						>
+							Detect language
+						</Li>
+						<Li
+							$isActive={srcActiveLang === 'en'}
+							onClick={() => setSrcActiveLang('en')}
+						>
+							English
+						</Li>
+						<Li
+							$isActive={srcActiveLang === 'ru'}
+							onClick={() => setSrcActiveLang('ru')}
+						>
+							Russian
+						</Li>
+					</>
+				) : (
+					<>
+						<Li
+							$isActive={finActiveLang === 'en'}
+							onClick={() => setFinActiveLang('en')}
+						>
+							English
+						</Li>
+						<Li
+							$isActive={finActiveLang === 'ru'}
+							onClick={() => setFinActiveLang('ru')}
+						>
+							Russian
+						</Li>
+					</>
+				)}
 			</Ul>
 
-			{detect ? null : (
+			{detectState ? null : (
 				<Img
 					src={change}
 					alt='change'

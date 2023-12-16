@@ -17,7 +17,12 @@ const Span = styled.span`
 	font-size: 14px;
 `;
 
-function TranslateCardInput({ inputState, srcText, setSrcText, finText }) {
+const Wrapper = styled.div`
+	display: flex;
+	justify-content: flex-end;
+`;
+
+function TranslateCardInput({ inputState, sourceText, setSourceText, targetText }) {
 	return (
 		<>
 			{inputState ? (
@@ -25,20 +30,20 @@ function TranslateCardInput({ inputState, srcText, setSrcText, finText }) {
 					<Input
 						$span={inputState}
 						type='text'
-						value={srcText}
-						onChange={e => setSrcText(e.target.value)}
+						value={sourceText}
+						onChange={e => setSourceText(e.target.value)}
 						maxLength={500}
 					/>
-					<div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-						<Span>{srcText.length}/500</Span>
-					</div>
+					<Wrapper>
+						<Span>{sourceText.length}/500</Span>
+					</Wrapper>
 				</>
 			) : (
 				<>
 					<Input
 						$span={inputState}
 						type='text'
-						value={finText}
+						value={targetText}
 						readOnly
 					/>
 				</>

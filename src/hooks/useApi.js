@@ -3,8 +3,6 @@ import axios from 'axios';
 
 const useApi = (url, method = 'GET', data = null) => {
 	const [response, setResponse] = useState(null);
-	const [error, setError] = useState('');
-	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -12,16 +10,14 @@ const useApi = (url, method = 'GET', data = null) => {
 				const res = await axios({ url, method, data });
 				setResponse(res.data);
 			} catch (error) {
-				setError(error);
-			} finally {
-				setLoading(false);
+				console.log(`Error: ${error}`);
 			}
 		};
 
 		fetchData();
 	}, [url, method, data]);
 
-	return { response, error, loading };
+	return { response };
 };
 
 export default useApi;

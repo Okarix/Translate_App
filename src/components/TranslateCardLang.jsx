@@ -37,27 +37,43 @@ const Img = styled.img`
 	}
 `;
 
-function TranslateCardLang({ detectState, srcActiveLang, setSrcActiveLang, finActiveLang, setFinActiveLang }) {
+const Wrapper = styled.div`
+	display: flex;
+	justify-content: space-between;
+`;
+
+function TranslateCardLang({ detectState, sourceActiveLang, setSourceActiveLang, targetActiveLang, setTargetActiveLang }) {
+	const handleSrcLangClick = () => {
+		setSourceActiveLang('Detect');
+	};
+
+	const handleEnClick = () => {
+		setSourceActiveLang('en');
+	};
+
+	const handleRuClick = () => {
+		setSourceActiveLang('ru');
+	};
 	return (
-		<div style={{ display: 'flex', justifyContent: 'space-between' }}>
+		<Wrapper>
 			<Ul $detectState={detectState}>
 				{detectState ? (
 					<>
 						<Li
-							$isActive={srcActiveLang === 'Detect'}
-							onClick={() => setSrcActiveLang('Detect')}
+							$isActive={sourceActiveLang === 'Detect'}
+							onClick={handleSrcLangClick}
 						>
 							Detect language
 						</Li>
 						<Li
-							$isActive={srcActiveLang === 'en'}
-							onClick={() => setSrcActiveLang('en')}
+							$isActive={sourceActiveLang === 'en'}
+							onClick={handleEnClick}
 						>
 							English
 						</Li>
 						<Li
-							$isActive={srcActiveLang === 'ru'}
-							onClick={() => setSrcActiveLang('ru')}
+							$isActive={sourceActiveLang === 'ru'}
+							onClick={handleRuClick}
 						>
 							Russian
 						</Li>
@@ -65,14 +81,14 @@ function TranslateCardLang({ detectState, srcActiveLang, setSrcActiveLang, finAc
 				) : (
 					<>
 						<Li
-							$isActive={finActiveLang === 'en'}
-							onClick={() => setFinActiveLang('en')}
+							$isActive={targetActiveLang === 'en'}
+							onClick={() => setTargetActiveLang('en')}
 						>
 							English
 						</Li>
 						<Li
-							$isActive={finActiveLang === 'ru'}
-							onClick={() => setFinActiveLang('ru')}
+							$isActive={targetActiveLang === 'ru'}
+							onClick={() => setTargetActiveLang('ru')}
 						>
 							Russian
 						</Li>
@@ -86,7 +102,7 @@ function TranslateCardLang({ detectState, srcActiveLang, setSrcActiveLang, finAc
 					alt='change'
 				/>
 			)}
-		</div>
+		</Wrapper>
 	);
 }
 

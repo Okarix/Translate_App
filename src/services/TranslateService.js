@@ -4,9 +4,9 @@ const useTranslateService = () => {
 	const _apiBase = 'https://api.mymemory.translated.net';
 
 	const getTranslate = (text, srcLang, finLang) => {
-		const { response, error, loading } = useApi(`${_apiBase}/get?q=${text}&langpair=${srcLang}/${finLang}`);
+		const { response } = useApi(`${_apiBase}/get?q=${text}&langpair=${srcLang}/${finLang}`);
 
-		return transformTranslate(response), error, loading;
+		return transformTranslate(response);
 	};
 
 	const transformTranslate = trans => {
@@ -15,5 +15,7 @@ const useTranslateService = () => {
 		};
 	};
 
-	return getTranslate;
+	return { getTranslate };
 };
+
+export default useTranslateService;

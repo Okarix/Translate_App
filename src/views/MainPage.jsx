@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import styled from 'styled-components';
 import bg from '../assets/img/bg/hero_img.jpg';
 import TranslateCard from '../components/TranslateCard';
@@ -14,33 +14,39 @@ const Container = styled.div`
 	margin: 0 auto;
 `;
 
+const Wrapper = styled.div`
+	display: flex;
+	justify-content: space-around;
+`;
+
 function MainPage() {
-	const [srcActiveLang, setSrcActiveLang] = useState('');
-	const [finActiveLang, setFinActiveLang] = useState('');
-	const [srcText, setSrcText] = useState('');
-	const [finText, setFinText] = useState('');
+	const [sourceActiveLang, setSourceActiveLang] = useState('');
+	const [targetActiveLang, setTargetActiveLang] = useState('');
+	const [sourceText, setSourceText] = useState('');
+	const [targetText, setTargetText] = useState('');
 
 	return (
 		<Bg>
 			<Container>
-				<div style={{ display: 'flex', justifyContent: 'space-around' }}>
+				<Wrapper>
 					<TranslateCard
 						detectState={true}
-						srcActiveLang={srcActiveLang}
-						setSrcActiveLang={setSrcActiveLang}
-						srcText={srcText}
-						setSrcText={setSrcText}
+						sourceActiveLang={sourceActiveLang}
+						setSourceActiveLang={setSourceActiveLang}
+						sourceText={sourceText}
+						setSourceText={setSourceText}
 					/>
 					<TranslateCard
 						detectState={false}
-						finActiveLang={finActiveLang}
-						setFinActiveLang={setFinActiveLang}
-						finText={finText}
+						targetActiveLang={targetActiveLang}
+						setTargetActiveLang={setTargetActiveLang}
+						targetText={targetText}
+						setTargetText={setTargetText}
 					/>
-				</div>
+				</Wrapper>
 			</Container>
 		</Bg>
 	);
 }
 
-export default MainPage;
+export default memo(MainPage);

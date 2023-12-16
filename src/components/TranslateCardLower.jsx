@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import sound from '../assets/icons/sound.svg';
 import copy from '../assets/icons/copy.svg';
-import { useState } from 'react';
 
 const Div = styled.div`
 	display: flex;
@@ -36,12 +35,17 @@ const Img = styled.img`
 	}
 `;
 
-function TranslateCardLower({ buttonState }) {
-	const [btn, setBtn] = useState(buttonState);
+const Wrapper = styled.div`
+	width: 15%;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+`;
 
+function TranslateCardLower({ buttonState }) {
 	return (
 		<Div>
-			<div style={{ width: '15%', display: 'flex', justifyContent: 'space-around', alignItems: 'center' }}>
+			<Wrapper>
 				<Img
 					src={sound}
 					alt='sound'
@@ -50,8 +54,8 @@ function TranslateCardLower({ buttonState }) {
 					src={copy}
 					alt='copy'
 				/>
-			</div>
-			{!btn ? null : <Button>Translate</Button>}
+			</Wrapper>
+			{buttonState && <Button>Translate</Button>}
 		</Div>
 	);
 }

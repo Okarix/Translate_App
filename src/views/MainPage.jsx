@@ -42,6 +42,7 @@ function MainPage() {
 						setTargetActiveLang={setTargetActiveLang}
 						targetText={targetText}
 						setTargetText={setTargetText}
+						sourceText={sourceText}
 					/>
 				</Wrapper>
 			</Container>

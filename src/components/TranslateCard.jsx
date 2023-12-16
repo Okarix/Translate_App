@@ -29,7 +29,13 @@ function TranslateCard({ detectState, sourceActiveLang, setSourceActiveLang, tar
 				setSourceText={setSourceText}
 				targetText={targetText}
 			/>
-			<TranslateCardLower buttonState={detectState} />
+			<TranslateCardLower
+				buttonState={detectState}
+				setTargetText={setTargetText}
+				sourceActiveLang={sourceActiveLang}
+				targetActiveLang={targetActiveLang}
+				sourceText={sourceText}
+			/>
 		</Div>
 	);
 }

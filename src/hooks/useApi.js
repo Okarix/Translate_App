@@ -1,23 +1,22 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 
-const useApi = (url, method = 'GET', data = null) => {
-	const [response, setResponse] = useState(null);
-
-	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				const res = await axios({ url, method, data });
-				setResponse(res.data);
-			} catch (error) {
-				console.log(`Error: ${error}`);
+const useApi = () => {
+	const request = useCallback(async (url, method = 'GET', data = null) => {
+		try {
+			const res = await axios({ url, method, data });
+			if (!res.ok) {
+				throw new Error(`Could not fetch ${url}, status: ${res.status}`);
 			}
-		};
+			console.log(res);
+			return res;
+		} catch (error) {
+			console.log(error);
+			throw error;
+		}
+	});
 
-		fetchData();
-	}, [url, method, data]);
-
-	return { response };
+	return { request };
 };
 
 export default useApi;

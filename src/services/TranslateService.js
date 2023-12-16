@@ -3,10 +3,13 @@ import useApi from '../hooks/useApi';
 const useTranslateService = () => {
 	const _apiBase = 'https://api.mymemory.translated.net';
 
-	const getTranslate = (text, srcLang, finLang) => {
-		const { response } = useApi(`${_apiBase}/get?q=${text}&langpair=${srcLang}/${finLang}`);
+	const { request } = useApi();
 
-		return transformTranslate(response);
+	const getTranslate = async (text, srcLang, finLang) => {
+		const result = await request(`${_apiBase}/get?q=${text}&langpair=${srcLang}|${finLang}`);
+		console.log(result);
+
+		return transformTranslate(result);
 	};
 
 	const transformTranslate = trans => {

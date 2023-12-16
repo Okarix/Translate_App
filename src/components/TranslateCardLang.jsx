@@ -47,12 +47,20 @@ function TranslateCardLang({ detectState, sourceActiveLang, setSourceActiveLang,
 		setSourceActiveLang('Detect');
 	};
 
-	const handleEnClick = () => {
+	const handleSrcEnClick = () => {
 		setSourceActiveLang('en');
 	};
 
-	const handleRuClick = () => {
+	const handleSrcRuClick = () => {
 		setSourceActiveLang('ru');
+	};
+
+	const handleTargetEnClick = () => {
+		setTargetActiveLang('en');
+	};
+
+	const handleTargetRuClick = () => {
+		setTargetActiveLang('ru');
 	};
 	return (
 		<Wrapper>
@@ -67,13 +75,13 @@ function TranslateCardLang({ detectState, sourceActiveLang, setSourceActiveLang,
 						</Li>
 						<Li
 							$isActive={sourceActiveLang === 'en'}
-							onClick={handleEnClick}
+							onClick={handleSrcEnClick}
 						>
 							English
 						</Li>
 						<Li
 							$isActive={sourceActiveLang === 'ru'}
-							onClick={handleRuClick}
+							onClick={handleSrcRuClick}
 						>
 							Russian
 						</Li>
@@ -82,13 +90,13 @@ function TranslateCardLang({ detectState, sourceActiveLang, setSourceActiveLang,
 					<>
 						<Li
 							$isActive={targetActiveLang === 'en'}
-							onClick={() => setTargetActiveLang('en')}
+							onClick={handleTargetEnClick}
 						>
 							English
 						</Li>
 						<Li
 							$isActive={targetActiveLang === 'ru'}
-							onClick={() => setTargetActiveLang('ru')}
+							onClick={() => handleTargetRuClick('ru')}
 						>
 							Russian
 						</Li>

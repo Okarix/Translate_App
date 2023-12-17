@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 import change from '../assets/icons/change.svg';
 
@@ -96,7 +95,7 @@ function TranslateCardLang({ detectState, sourceActiveLang, setSourceActiveLang,
 						</Li>
 						<Li
 							$isActive={targetActiveLang === 'ru'}
-							onClick={() => handleTargetRuClick('ru')}
+							onClick={handleTargetRuClick}
 						>
 							Russian
 						</Li>

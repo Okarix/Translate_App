@@ -7,14 +7,12 @@ const useTranslateService = () => {
 
 	const getTranslate = async (text, srcLang, finLang) => {
 		const result = await request(`${_apiBase}/get?q=${text}&langpair=${srcLang}|${finLang}`);
-		console.log(result);
-
 		return transformTranslate(result);
 	};
 
-	const transformTranslate = trans => {
+	const transformTranslate = (trans, finLang) => {
 		return {
-			text: trans.responseData.translatedText,
+			text: finLang !== 'ru' ? trans.data.responseData.translatedText : JSON.parse(trans.data.responseData.translatedText),
 		};
 	};
 

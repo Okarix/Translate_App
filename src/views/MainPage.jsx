@@ -2,6 +2,7 @@ import { memo, useState } from 'react';
 import styled from 'styled-components';
 import bg from '../assets/img/bg/hero_img.jpg';
 import TranslateCard from '../components/TranslateCard';
+import useTranslateService from '../services/TranslateService';
 
 const Bg = styled.div`
 	background: url(${bg}) center center / cover no-repeat;
@@ -25,6 +26,13 @@ function MainPage() {
 	const [sourceText, setSourceText] = useState('');
 	const [targetText, setTargetText] = useState('');
 
+	const { getTranslate } = useTranslateService();
+
+	const handleTranslateClick = async () => {
+		const res = await getTranslate(sourceText, sourceActiveLang, targetActiveLang);
+		setTargetText(res.text);
+	};
+
 	return (
 		<Bg>
 			<Container>
@@ -35,13 +43,13 @@ function MainPage() {
 						setSourceActiveLang={setSourceActiveLang}
 						sourceText={sourceText}
 						setSourceText={setSourceText}
+						handleTranslateClick={handleTranslateClick}
 					/>
 					<TranslateCard
 						detectState={false}
 						targetActiveLang={targetActiveLang}
 						setTargetActiveLang={setTargetActiveLang}
 						targetText={targetText}
-						setTargetText={setTargetText}
 						sourceText={sourceText}
 					/>
 				</Wrapper>

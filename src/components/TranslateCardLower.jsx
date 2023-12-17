@@ -1,4 +1,3 @@
-import useTranslateService from '../services/TranslateService';
 import styled from 'styled-components';
 import sound from '../assets/icons/sound.svg';
 import copy from '../assets/icons/copy.svg';
@@ -43,14 +42,7 @@ const Wrapper = styled.div`
 	align-items: center;
 `;
 
-function TranslateCardLower({ buttonState, targetActiveLang, sourceActiveLang, setTargetText, sourceText }) {
-	const { getTranslate } = useTranslateService();
-
-	const handleTranslateClick = () => {
-		const { response } = getTranslate(sourceText, sourceActiveLang, targetActiveLang);
-		console.log(response);
-	};
-
+function TranslateCardLower({ buttonState, handleTranslateClick }) {
 	return (
 		<Div>
 			<Wrapper>

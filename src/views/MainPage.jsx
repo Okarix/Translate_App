@@ -1,4 +1,4 @@
-import { memo, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import bg from '../assets/img/bg/hero_img.jpg';
 import TranslateCard from '../components/TranslateCard';
@@ -27,6 +27,16 @@ function MainPage() {
 	const [targetText, setTargetText] = useState('');
 
 	const { getTranslate } = useTranslateService();
+
+	useEffect(() => {
+		const clearState = () => {
+			if (!sourceText) {
+				setTargetText('');
+			}
+		};
+
+		clearState();
+	}, [sourceText]);
 
 	const handleTranslateClick = async () => {
 		const res = await getTranslate(sourceText, sourceActiveLang, targetActiveLang);

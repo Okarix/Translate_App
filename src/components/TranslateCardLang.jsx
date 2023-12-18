@@ -42,6 +42,12 @@ const Wrapper = styled.div`
 `;
 
 function TranslateCardLang({ detectState, sourceActiveLang, setSourceActiveLang, targetActiveLang, setTargetActiveLang }) {
+	// const handleSwapLangClick = () => {
+	// 	const tempLang = sourceActiveLang;
+	// 	setSourceActiveLang(targetActiveLang);
+	// 	setTargetActiveLang(tempLang);
+	// };
+
 	const handleSrcLangClick = () => {
 		setSourceActiveLang('Detect');
 	};
@@ -107,6 +113,7 @@ function TranslateCardLang({ detectState, sourceActiveLang, setSourceActiveLang,
 				<Img
 					src={change}
 					alt='change'
+					// onClick={handleSwapLangClick}
 				/>
 			)}
 		</Wrapper>

@@ -33,6 +33,7 @@ function TranslateCardInput({ inputState, sourceText, setSourceText, targetText 
 						value={sourceText}
 						onChange={e => setSourceText(e.target.value)}
 						maxLength={500}
+						placeholder='Write something...'
 					/>
 					<Wrapper>
 						<Span>{sourceText.length}/500</Span>
@@ -45,6 +46,7 @@ function TranslateCardInput({ inputState, sourceText, setSourceText, targetText 
 						type='text'
 						value={targetText}
 						readOnly
+						placeholder='Translate'
 					/>
 				</>
 			)}

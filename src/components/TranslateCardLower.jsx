@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import sound from '../assets/icons/sound.svg';
 import copy from '../assets/icons/copy.svg';
+import clipboardCopy from 'clipboard-copy';
 
 const Div = styled.div`
 	display: flex;
@@ -42,17 +43,50 @@ const Wrapper = styled.div`
 	align-items: center;
 `;
 
-function TranslateCardLower({ buttonState, handleTranslateClick }) {
+function TranslateCardLower({ buttonState, handleTranslateClick, sourceText, targetText }) {
+	const handleCopyClick = async () => {
+		if (buttonState) {
+			try {
+				await clipboardCopy(sourceText);
+				alert('The text successfully copied to the clipboard');
+			} catch (error) {
+				console.error('Error copying text:', error);
+				alert('Failed to copy. Please manually copy.');
+			}
+		} else {
+			try {
+				await clipboardCopy(targetText);
+				alert('The text successfully copied to the clipboard');
+			} catch (error) {
+				console.error('Error copying text:', error);
+				alert('Failed to copy. Please manually copy.');
+			}
+		}
+	};
+
+	const handleSpeakClick = () => {
+		if (buttonState) {
+			const utterance = new SpeechSynthesisUtterance();
+			utterance.text = sourceText;
+			window.speechSynthesis.speak(utterance);
+		} else {
+			const utterance = new SpeechSynthesisUtterance(targetText);
+			speechSynthesis.speak(utterance);
+		}
+	};
+
 	return (
 		<Div>
 			<Wrapper>
 				<Img
 					src={sound}
 					alt='sound'
+					onClick={handleSpeakClick}
 				/>
 				<Img
 					src={copy}
 					alt='copy'
+					onClick={handleCopyClick}
 				/>
 			</Wrapper>
 			{buttonState && <Button onClick={handleTranslateClick}>Translate</Button>}

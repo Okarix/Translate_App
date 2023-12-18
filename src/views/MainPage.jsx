@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import bg from '../assets/img/bg/hero_img.jpg';
 import TranslateCard from '../components/TranslateCard';
 import useTranslateService from '../services/TranslateService';
+import clipboardCopy from 'clipboard-copy';
 
 const Bg = styled.div`
 	background: url(${bg}) center center / cover no-repeat;

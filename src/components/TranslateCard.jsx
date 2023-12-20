@@ -12,7 +12,7 @@ const Div = styled.div`
 	padding: 25px 30px 25px 30px;
 `;
 
-function TranslateCard({ detectState, sourceActiveLang, setSourceActiveLang, targetActiveLang, setTargetActiveLang, sourceText, setSourceText, targetText, handleTranslateClick }) {
+function TranslateCard({ detectState, sourceActiveLang, setSourceActiveLang, targetActiveLang, setTargetActiveLang, sourceText, setSourceText, targetText, handleTranslateClick, setDetectLang, detectLang }) {
 	return (
 		<Div>
 			<TranslateCardLang
@@ -21,6 +21,9 @@ function TranslateCard({ detectState, sourceActiveLang, setSourceActiveLang, tar
 				setSourceActiveLang={setSourceActiveLang}
 				targetActiveLang={targetActiveLang}
 				setTargetActiveLang={setTargetActiveLang}
+				sourceText={sourceText}
+				setDetectLang={setDetectLang}
+				detectLang={detectLang}
 			/>
 			<TranslateCardDivider />
 			<TranslateCardInput

@@ -41,23 +41,20 @@ const Wrapper = styled.div`
 	justify-content: space-between;
 `;
 
-function TranslateCardLang({ detectState, sourceActiveLang, setSourceActiveLang, targetActiveLang, setTargetActiveLang }) {
-	// const handleSwapLangClick = () => {
-	// 	const tempLang = sourceActiveLang;
-	// 	setSourceActiveLang(targetActiveLang);
-	// 	setTargetActiveLang(tempLang);
-	// };
-
-	const handleSrcLangClick = () => {
-		setSourceActiveLang('Detect');
+function TranslateCardLang({ detectState, sourceActiveLang, setSourceActiveLang, targetActiveLang, setTargetActiveLang, detectLang, setDetectLang }) {
+	const handleDetectClick = () => {
+		setDetectLang('Detect');
+		setSourceActiveLang('');
 	};
 
 	const handleSrcEnClick = () => {
 		setSourceActiveLang('en');
+		setDetectLang('');
 	};
 
 	const handleSrcRuClick = () => {
 		setSourceActiveLang('ru');
+		setDetectLang('');
 	};
 
 	const handleTargetEnClick = () => {
@@ -73,8 +70,8 @@ function TranslateCardLang({ detectState, sourceActiveLang, setSourceActiveLang,
 				{detectState ? (
 					<>
 						<Li
-							$isActive={sourceActiveLang === 'Detect'}
-							onClick={handleSrcLangClick}
+							$isActive={detectLang === 'Detect'}
+							onClick={handleDetectClick}
 						>
 							Detect language
 						</Li>

@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import bg from '../assets/img/bg/hero_img.jpg';
 import TranslateCard from '../components/TranslateCard';
 import useTranslateService from '../services/TranslateService';
-import clipboardCopy from 'clipboard-copy';
 
 const Bg = styled.div`
 	background: url(${bg}) center center / cover no-repeat;
@@ -26,8 +25,9 @@ function MainPage() {
 	const [targetActiveLang, setTargetActiveLang] = useState('');
 	const [sourceText, setSourceText] = useState('');
 	const [targetText, setTargetText] = useState('');
+	const [detectLang, setDetectLang] = useState('');
 
-	const { getTranslate } = useTranslateService();
+	const { getTranslate, getDetectedLanguage } = useTranslateService();
 
 	useEffect(() => {
 		const clearState = () => {
@@ -40,8 +40,16 @@ function MainPage() {
 	}, [sourceText]);
 
 	const handleTranslateClick = async () => {
-		const res = await getTranslate(sourceText, sourceActiveLang, targetActiveLang);
-		setTargetText(res.text);
+		if (detectLang && targetActiveLang && sourceText) {
+			const lang = await getDetectedLanguage(sourceText);
+			const res = await getTranslate(sourceText, lang, targetActiveLang);
+			setTargetText(res.text);
+		} else if (sourceText && targetActiveLang && sourceActiveLang) {
+			const res = await getTranslate(sourceText, sourceActiveLang, targetActiveLang);
+			setTargetText(res.text);
+		} else {
+			alert('You need to input text to translate or select language');
+		}
 	};
 
 	return (
@@ -55,6 +63,8 @@ function MainPage() {
 						sourceText={sourceText}
 						setSourceText={setSourceText}
 						handleTranslateClick={handleTranslateClick}
+						setDetectLang={setDetectLang}
+						detectLang={detectLang}
 					/>
 					<TranslateCard
 						detectState={false}

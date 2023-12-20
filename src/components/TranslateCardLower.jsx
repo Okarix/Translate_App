@@ -64,24 +64,12 @@ function TranslateCardLower({ buttonState, handleTranslateClick, sourceText, tar
 		}
 	};
 
-	const handleSpeakClick = () => {
-		if (buttonState) {
-			const utterance = new SpeechSynthesisUtterance();
-			utterance.text = sourceText;
-			window.speechSynthesis.speak(utterance);
-		} else {
-			const utterance = new SpeechSynthesisUtterance(targetText);
-			speechSynthesis.speak(utterance);
-		}
-	};
-
 	return (
 		<Div>
 			<Wrapper>
 				<Img
 					src={sound}
 					alt='sound'
-					onClick={handleSpeakClick}
 				/>
 				<Img
 					src={copy}

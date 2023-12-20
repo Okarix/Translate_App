@@ -5,7 +5,6 @@ const useApi = () => {
 	const request = useCallback(async (url, method = 'GET', headers = {}, data = null) => {
 		try {
 			const res = await axios({ url, method, headers, data });
-			console.log('Success', headers);
 			return res;
 		} catch (error) {
 			console.log('Fail', headers);

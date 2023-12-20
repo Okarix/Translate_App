@@ -40,9 +40,10 @@ function MainPage() {
 	}, [sourceText]);
 
 	const handleTranslateClick = async () => {
-		if (detectLang && targetActiveLang && sourceText) {
+		if (detectLang && sourceText) {
 			const lang = await getDetectedLanguage(sourceText);
-			const res = await getTranslate(sourceText, lang, targetActiveLang);
+			const res = await getTranslate(sourceText, lang, `${lang === 'ru' ? 'en' : 'ru'}`);
+			lang === 'ru' ? setTargetActiveLang('en') : setTargetActiveLang('ru');
 			setTargetText(res.text);
 		} else if (sourceText && targetActiveLang && sourceActiveLang) {
 			const res = await getTranslate(sourceText, sourceActiveLang, targetActiveLang);

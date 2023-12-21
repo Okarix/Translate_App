@@ -43,7 +43,7 @@ const Wrapper = styled.div`
 	align-items: center;
 `;
 
-function TranslateCardLower({ buttonState, handleTranslateClick, sourceText, targetText }) {
+function TranslateCardLower({ buttonState, handleTranslateClick, sourceText, targetText, targetActiveLang, sourceActiveLang }) {
 	const handleCopyClick = async () => {
 		if (buttonState) {
 			try {
@@ -64,10 +64,24 @@ function TranslateCardLower({ buttonState, handleTranslateClick, sourceText, tar
 		}
 	};
 
+	const speakText = () => {
+		let voices = speechSynthesis.getVoices();
+		if (buttonState) {
+			const ssUtterance = new SpeechSynthesisUtterance(sourceText);
+			ssUtterance.voice = sourceActiveLang === 'ru' ? voices[17] : voices[3];
+			speechSynthesis.speak(ssUtterance);
+		} else {
+			const ssUtterance = new SpeechSynthesisUtterance(targetText);
+			ssUtterance.voice = targetActiveLang === 'ru' ? voices[17] : voices[3];
+			speechSynthesis.speak(ssUtterance);
+		}
+	};
+
 	return (
 		<Div>
 			<Wrapper>
 				<Img
+					onClick={speakText}
 					src={sound}
 					alt='sound'
 				/>

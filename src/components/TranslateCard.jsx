@@ -37,6 +37,8 @@ function TranslateCard({ detectState, sourceActiveLang, setSourceActiveLang, tar
 				handleTranslateClick={handleTranslateClick}
 				sourceText={sourceText}
 				targetText={targetText}
+				sourceActiveLang={sourceActiveLang}
+				targetActiveLang={targetActiveLang}
 			/>
 		</Div>
 	);

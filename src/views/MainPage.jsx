@@ -42,6 +42,7 @@ function MainPage() {
 	const handleTranslateClick = async () => {
 		if (detectLang && sourceText) {
 			const lang = await getDetectedLanguage(sourceText);
+			setSourceActiveLang(lang);
 			const res = await getTranslate(sourceText, lang, `${lang === 'ru' ? 'en' : 'ru'}`);
 			lang === 'ru' ? setTargetActiveLang('en') : setTargetActiveLang('ru');
 			setTargetText(res.text);

@@ -2,6 +2,9 @@ import styled from 'styled-components';
 import sound from '../assets/icons/sound.svg';
 import copy from '../assets/icons/copy.svg';
 import clipboardCopy from 'clipboard-copy';
+import { useContext } from 'react';
+import { LanguageContext } from '../context/language';
+import useTranslateService from '../services/TranslateService';
 
 const Div = styled.div`
 	display: flex;
@@ -43,11 +46,31 @@ const Wrapper = styled.div`
 	align-items: center;
 `;
 
-function TranslateCardLower({ buttonState, handleTranslateClick, sourceText, targetText, targetActiveLang, sourceActiveLang }) {
+function TranslateCardLower({ buttonState }) {
+	const { translate, setTranslate } = useContext(LanguageContext);
+	const { getTranslate, getDetectedLanguage } = useTranslateService();
+
+	const voices = speechSynthesis.getVoices();
+
+	const handleTranslateClick = async () => {
+		if (translate.detectLang && translate.srcText) {
+			const lang = await getDetectedLanguage(translate.srcText);
+			setTranslate({ ...translate, srcActiveLang: lang });
+			const res = await getTranslate(translate.srcText, lang, `${lang === 'ru' ? 'en' : 'ru'}`);
+			lang === 'ru' ? setTranslate({ ...translate, trgActiveLang: 'en' }) : setTranslate({ ...translate, trgActiveLang: 'ru' });
+			setTranslate({ ...translate, trgText: res.text });
+		} else if (translate.srcText && translate.trgActiveLang && translate.srcActiveLang) {
+			const res = await getTranslate(translate.srcText, translate.srcActiveLang, translate.trgActiveLang);
+			setTranslate({ ...translate, trgText: res.text });
+		} else {
+			alert('You need to input text to translate or select language');
+		}
+	};
+
 	const handleCopyClick = async () => {
 		if (buttonState) {
 			try {
-				await clipboardCopy(sourceText);
+				await clipboardCopy(translate.srcText);
 				alert('The text successfully copied to the clipboard');
 			} catch (error) {
 				console.error('Error copying text:', error);
@@ -55,7 +78,7 @@ function TranslateCardLower({ buttonState, handleTranslateClick, sourceText, tar
 			}
 		} else {
 			try {
-				await clipboardCopy(targetText);
+				await clipboardCopy(translate.trgText);
 				alert('The text successfully copied to the clipboard');
 			} catch (error) {
 				console.error('Error copying text:', error);
@@ -65,14 +88,13 @@ function TranslateCardLower({ buttonState, handleTranslateClick, sourceText, tar
 	};
 
 	const speakText = () => {
-		let voices = speechSynthesis.getVoices();
 		if (buttonState) {
-			const ssUtterance = new SpeechSynthesisUtterance(sourceText);
-			ssUtterance.voice = sourceActiveLang === 'ru' ? voices[17] : voices[3];
+			const ssUtterance = new SpeechSynthesisUtterance(translate.srcText);
+			ssUtterance.voice = translate.srcActiveLang === 'ru' ? voices[17] : voices[3];
 			speechSynthesis.speak(ssUtterance);
 		} else {
-			const ssUtterance = new SpeechSynthesisUtterance(targetText);
-			ssUtterance.voice = targetActiveLang === 'ru' ? voices[17] : voices[3];
+			const ssUtterance = new SpeechSynthesisUtterance(translate.trgText);
+			ssUtterance.voice = translate.trgActiveLang === 'ru' ? voices[17] : voices[3];
 			speechSynthesis.speak(ssUtterance);
 		}
 	};

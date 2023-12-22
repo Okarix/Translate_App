@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { useContext } from 'react';
+import { LanguageContext } from '../context/language';
 
 const Input = styled.textarea`
 	resize: none;
@@ -22,7 +24,9 @@ const Wrapper = styled.div`
 	justify-content: flex-end;
 `;
 
-function TranslateCardInput({ inputState, sourceText, setSourceText, targetText }) {
+function TranslateCardInput({ inputState }) {
+	const { translate, setTranslate } = useContext(LanguageContext);
+
 	return (
 		<>
 			{inputState ? (
@@ -30,13 +34,13 @@ function TranslateCardInput({ inputState, sourceText, setSourceText, targetText 
 					<Input
 						$span={inputState}
 						type='text'
-						value={sourceText}
-						onChange={e => setSourceText(e.target.value)}
+						value={translate.srcText}
+						onChange={e => setTranslate({ ...translate, srcText: e.target.value })}
 						maxLength={500}
 						placeholder='Write something...'
 					/>
 					<Wrapper>
-						<Span>{sourceText.length}/500</Span>
+						<Span>{translate.srcText.length}/500</Span>
 					</Wrapper>
 				</>
 			) : (
@@ -44,7 +48,7 @@ function TranslateCardInput({ inputState, sourceText, setSourceText, targetText 
 					<Input
 						$span={inputState}
 						type='text'
-						value={targetText}
+						value={translate.trgText}
 						readOnly
 						placeholder='Translate'
 					/>

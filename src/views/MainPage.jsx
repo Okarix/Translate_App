@@ -1,8 +1,8 @@
-import { memo, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import bg from '../assets/img/bg/hero_img.jpg';
 import TranslateCard from '../components/TranslateCard';
-import useTranslateService from '../services/TranslateService';
+import { LanguageContext } from '../context/language';
 
 const Bg = styled.div`
 	background: url(${bg}) center center / cover no-repeat;
@@ -21,64 +21,36 @@ const Wrapper = styled.div`
 `;
 
 function MainPage() {
-	const [sourceActiveLang, setSourceActiveLang] = useState('');
-	const [targetActiveLang, setTargetActiveLang] = useState('');
-	const [sourceText, setSourceText] = useState('');
-	const [targetText, setTargetText] = useState('');
-	const [detectLang, setDetectLang] = useState('');
-
-	const { getTranslate, getDetectedLanguage } = useTranslateService();
+	const [translate, setTranslate] = useState({
+		srcActiveLang: '',
+		trgActiveLang: '',
+		srcText: '',
+		trgText: '',
+		detectLang: '',
+	});
 
 	useEffect(() => {
 		const clearState = () => {
-			if (!sourceText) {
-				setTargetText('');
+			if (!translate.srcText) {
+				setTranslate({ ...translate, trgText: '' });
 			}
 		};
 
 		clearState();
-	}, [sourceText]);
-
-	const handleTranslateClick = async () => {
-		if (detectLang && sourceText) {
-			const lang = await getDetectedLanguage(sourceText);
-			setSourceActiveLang(lang);
-			const res = await getTranslate(sourceText, lang, `${lang === 'ru' ? 'en' : 'ru'}`);
-			lang === 'ru' ? setTargetActiveLang('en') : setTargetActiveLang('ru');
-			setTargetText(res.text);
-		} else if (sourceText && targetActiveLang && sourceActiveLang) {
-			const res = await getTranslate(sourceText, sourceActiveLang, targetActiveLang);
-			setTargetText(res.text);
-		} else {
-			alert('You need to input text to translate or select language');
-		}
-	};
+	}, [translate.srcText]);
 
 	return (
-		<Bg>
-			<Container>
-				<Wrapper>
-					<TranslateCard
-						detectState={true}
-						sourceActiveLang={sourceActiveLang}
-						setSourceActiveLang={setSourceActiveLang}
-						sourceText={sourceText}
-						setSourceText={setSourceText}
-						handleTranslateClick={handleTranslateClick}
-						setDetectLang={setDetectLang}
-						detectLang={detectLang}
-					/>
-					<TranslateCard
-						detectState={false}
-						targetActiveLang={targetActiveLang}
-						setTargetActiveLang={setTargetActiveLang}
-						targetText={targetText}
-						sourceText={sourceText}
-					/>
-				</Wrapper>
-			</Container>
-		</Bg>
+		<LanguageContext.Provider value={{ translate, setTranslate }}>
+			<Bg>
+				<Container>
+					<Wrapper>
+						<TranslateCard detectState={true} />
+						<TranslateCard detectState={false} />
+					</Wrapper>
+				</Container>
+			</Bg>
+		</LanguageContext.Provider>
 	);
 }
 
-export default memo(MainPage);
+export default MainPage;

@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import change from '../assets/icons/change.svg';
+import { useContext } from 'react';
+import { LanguageContext } from '../context/language';
 
 const Ul = styled.ul`
 	display: flex;
@@ -41,28 +43,27 @@ const Wrapper = styled.div`
 	justify-content: space-between;
 `;
 
-function TranslateCardLang({ detectState, sourceActiveLang, setSourceActiveLang, targetActiveLang, setTargetActiveLang, detectLang, setDetectLang }) {
+function TranslateCardLang({ detectState }) {
+	const { translate, setTranslate } = useContext(LanguageContext);
+
 	const handleDetectClick = () => {
-		setDetectLang('Detect');
-		setSourceActiveLang('');
+		setTranslate({ ...translate, detectLang: 'Detect', srcActiveLang: '' });
 	};
 
 	const handleSrcEnClick = () => {
-		setSourceActiveLang('en');
-		setDetectLang('');
+		setTranslate({ ...translate, srcActiveLang: 'en', detectLang: '' });
 	};
 
 	const handleSrcRuClick = () => {
-		setSourceActiveLang('ru');
-		setDetectLang('');
+		setTranslate({ ...translate, srcActiveLang: 'ru', detectLang: '' });
 	};
 
 	const handleTargetEnClick = () => {
-		setTargetActiveLang('en');
+		setTranslate({ ...translate, trgActiveLang: 'en' });
 	};
 
 	const handleTargetRuClick = () => {
-		setTargetActiveLang('ru');
+		setTranslate({ ...translate, trgActiveLang: 'ru' });
 	};
 	return (
 		<Wrapper>
@@ -70,19 +71,19 @@ function TranslateCardLang({ detectState, sourceActiveLang, setSourceActiveLang,
 				{detectState ? (
 					<>
 						<Li
-							$isActive={detectLang === 'Detect'}
+							$isActive={translate.detectLang === 'Detect'}
 							onClick={handleDetectClick}
 						>
 							Detect language
 						</Li>
 						<Li
-							$isActive={sourceActiveLang === 'en'}
+							$isActive={translate.srcActiveLang === 'en'}
 							onClick={handleSrcEnClick}
 						>
 							English
 						</Li>
 						<Li
-							$isActive={sourceActiveLang === 'ru'}
+							$isActive={translate.srcActiveLang === 'ru'}
 							onClick={handleSrcRuClick}
 						>
 							Russian
@@ -91,13 +92,13 @@ function TranslateCardLang({ detectState, sourceActiveLang, setSourceActiveLang,
 				) : (
 					<>
 						<Li
-							$isActive={targetActiveLang === 'en'}
+							$isActive={translate.trgActiveLang === 'en'}
 							onClick={handleTargetEnClick}
 						>
 							English
 						</Li>
 						<Li
-							$isActive={targetActiveLang === 'ru'}
+							$isActive={translate.trgActiveLang === 'ru'}
 							onClick={handleTargetRuClick}
 						>
 							Russian
@@ -110,7 +111,6 @@ function TranslateCardLang({ detectState, sourceActiveLang, setSourceActiveLang,
 				<Img
 					src={change}
 					alt='change'
-					// onClick={handleSwapLangClick}
 				/>
 			)}
 		</Wrapper>

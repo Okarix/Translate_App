@@ -56,7 +56,7 @@ function TranslateCardLower({ buttonState }) {
 		if (translate.detectLang && translate.srcText) {
 			const lang = await getDetectedLanguage(translate.srcText);
 			const res = await getTranslate(translate.srcText, lang, `${lang === 'ru' ? 'en' : 'ru'}`);
-			lang === 'ru' ? setTranslate({ ...translate, trgActiveLang: 'en', trgText: res.text }) : setTranslate({ ...translate, trgActiveLang: 'ru', trgText: res.text });
+			lang === 'ru' ? setTranslate({ ...translate, trgActiveLang: 'en', trgText: res.text, detectLang: '', srcActiveLang: lang }) : setTranslate({ ...translate, trgActiveLang: 'ru', trgText: res.text, detectLang: '', srcActiveLang: lang });
 		} else if (translate.srcText && translate.trgActiveLang && translate.srcActiveLang) {
 			const res = await getTranslate(translate.srcText, translate.srcActiveLang, translate.trgActiveLang);
 			setTranslate({ ...translate, trgText: res.text });

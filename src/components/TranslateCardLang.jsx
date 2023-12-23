@@ -51,20 +51,29 @@ function TranslateCardLang({ detectState }) {
 	};
 
 	const handleSrcEnClick = () => {
-		setTranslate({ ...translate, srcActiveLang: 'en', detectLang: '' });
+		// setTranslate({ ...translate, srcActiveLang: 'en', detectLang: '' });
+		translate.trgActiveLang === 'en' ? setTranslate({ ...translate, srcActiveLang: 'ru', detectLang: '' }) : setTranslate({ ...translate, srcActiveLang: 'en', detectLang: '' });
 	};
 
 	const handleSrcRuClick = () => {
-		setTranslate({ ...translate, srcActiveLang: 'ru', detectLang: '' });
+		// setTranslate({ ...translate, srcActiveLang: 'ru', detectLang: '' });
+		translate.trgActiveLang === 'ru' ? setTranslate({ ...translate, srcActiveLang: 'en', detectLang: '' }) : setTranslate({ ...translate, srcActiveLang: 'ru', detectLang: '' });
 	};
 
 	const handleTargetEnClick = () => {
-		setTranslate({ ...translate, trgActiveLang: 'en' });
+		// setTranslate({ ...translate, trgActiveLang: 'en' });
+		translate.srcActiveLang === 'en' ? setTranslate({ ...translate, trgActiveLang: 'ru' }) : setTranslate({ ...translate, trgActiveLang: 'en' });
 	};
 
 	const handleTargetRuClick = () => {
-		setTranslate({ ...translate, trgActiveLang: 'ru' });
+		// setTranslate({ ...translate, trgActiveLang: 'ru' });
+		translate.srcActiveLang === 'ru' ? setTranslate({ ...translate, trgActiveLang: 'en' }) : setTranslate({ ...translate, trgActiveLang: 'ru' });
 	};
+
+	const handleSwitchLangs = () => {
+		translate.srcActiveLang === 'ru' && translate.trgActiveLang === 'en' ? setTranslate({ ...translate, srcActiveLang: 'en', trgActiveLang: 'ru', detectLang: '' }) : setTranslate({ ...translate, srcActiveLang: 'ru', trgActiveLang: 'en', detectLang: '' });
+	};
+
 	return (
 		<Wrapper>
 			<Ul $detectState={detectState}>
@@ -111,6 +120,7 @@ function TranslateCardLang({ detectState }) {
 				<Img
 					src={change}
 					alt='change'
+					onClick={handleSwitchLangs}
 				/>
 			)}
 		</Wrapper>

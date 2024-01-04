@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,500;9..40,700&display=swap');
 
+:root {
+	background: url('../src/assets/img/bg/hero_img.jpg') center center / cover no-repeat;
+	min-height: 100vh;
+}
+
 * {
 	font-family: 'DM Sans', sans-serif;
 	font-family: 'Roboto Condensed', sans-serif;

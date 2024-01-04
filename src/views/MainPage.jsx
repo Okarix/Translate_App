@@ -1,23 +1,18 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import bg from '../assets/img/bg/hero_img.jpg';
 import TranslateCard from '../components/TranslateCard';
 import { LanguageContext } from '../context/language';
 
-const Bg = styled.div`
-	background: url(${bg}) center center / cover no-repeat;
-	padding-top: 150px;
-	height: 100vh;
-`;
-
-const Container = styled.div`
-	width: 1180px;
-	margin: 0 auto;
-`;
-
 const Wrapper = styled.div`
+	margin: 0 auto;
+	padding: 100px 0 0 0;
 	display: flex;
-	justify-content: space-around;
+	justify-content: center;
+	column-gap: 20px;
+	@media (max-width: 1024px) {
+		flex-direction: column;
+		align-items: center;
+	}
 `;
 
 function MainPage() {
@@ -41,14 +36,10 @@ function MainPage() {
 
 	return (
 		<LanguageContext.Provider value={{ translate, setTranslate }}>
-			<Bg>
-				<Container>
-					<Wrapper>
-						<TranslateCard detectState={true} />
-						<TranslateCard detectState={false} />
-					</Wrapper>
-				</Container>
-			</Bg>
+			<Wrapper>
+				<TranslateCard detectState={true} />
+				<TranslateCard detectState={false} />
+			</Wrapper>
 		</LanguageContext.Provider>
 	);
 }

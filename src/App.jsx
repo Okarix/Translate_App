@@ -1,11 +1,7 @@
 import MainPage from './views/MainPage';
 
 function App() {
-	return (
-		<>
-			<MainPage />
-		</>
-	);
+	return <MainPage />;
 }
 
 export default App;

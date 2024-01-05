@@ -12,6 +12,7 @@ const Wrapper = styled.div`
 	@media (max-width: 1024px) {
 		flex-direction: column;
 		align-items: center;
+		padding-bottom: 100px;
 	}
 `;
 

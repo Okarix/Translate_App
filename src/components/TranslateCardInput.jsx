@@ -1,5 +1,5 @@
-import styled from 'styled-components';
 import { useContext } from 'react';
+import styled from 'styled-components';
 import { LanguageContext } from '../context/language';
 
 const Input = styled.textarea`
@@ -12,6 +12,9 @@ const Input = styled.textarea`
 	color: #cdd5e0;
 	background-color: #232534;
 	padding: 20px;
+	@media (max-width: 640px) {
+		padding: 10px;
+	}
 `;
 
 const Span = styled.span`

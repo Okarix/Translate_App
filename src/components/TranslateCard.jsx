@@ -12,7 +12,8 @@ const Div = styled.div`
 	padding: 25px 30px 25px 30px;
 	margin-top: 10px;
 	@media (max-width: 640px) {
-		width: 390px;
+		max-width: 350px;
+		margin: 10px auto;
 	}
 `;
 
